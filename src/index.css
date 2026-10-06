@@ -1,1 +1,24 @@
 @import "tailwindcss";
+
+@theme {
+  /* Palet Warna dari Adobe Color */
+  --color-desa-light: #2DD87A;
+  --color-desa-primary: #44A670;
+  --color-desa-muted: #46735A;
+  --color-desa-dark: #344039;
+  --color-desa-darker: #28332D;
+  
+  /* Warna Aksen Kuning/Jeruk untuk Tombol CTA di UI */
+  --color-desa-yellow: #F59E0B;
+  --color-desa-yellow-hover: #D97706;
+}
+
+/* Base styling biar rapi */
+@layer base {
+  html {
+    scroll-behavior: smooth;
+  }
+  body {
+    @apply bg-gray-50 text-slate-800 antialiased;
+  }
+}
