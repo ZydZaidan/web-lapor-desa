@@ -8,7 +8,7 @@ import {
 } from "lucide-react";
 import Navbar from "../Components/Navbar";
 import Footer from "../Components/Footer";
-import desa from "../Assets/desa.jpeg";
+import desa from "../assets/desa.jpeg";
 import { supabase } from "../lib/supabase"; // Pastikan path ini sesuai dengan file supabase.js lu
 
 export default function Landing() {
