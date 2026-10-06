@@ -1,13 +1,13 @@
 import { useState } from 'react';
-import { LayoutDashboard, LogOut, Search, Eye, Trash2, X, Image as ImageIcon, ChevronDown } from 'lucide-react';
+import { LayoutDashboard, LogOut, Search, Eye, Trash2, X, Image as ImageIcon} from 'lucide-react';
 import { useNavigate } from 'react-router-dom';
 
 // DUMMY DATA: Biar tabelnya hidup dan modalnya bisa nampilin data beda-beda
 const dummyLaporan = [
-  { id: 1, tanggal: "24 Okt 2026, 09:15 WIB", pelapor: "Budi Santoso", rt: "RT 01 / RW 03", inisial: "BS", kategori: "Infrastruktur", judul: "Lampu Penerangan Jalan Umum...", deskripsi: "Sudah 4 hari lampu PJU padam di jalan poros utama. Sangat membahayakan pengendara saat malam hari karena jalanan berlubang.", status: "Menunggu" },
+  { id: 1, tanggal: "24 Okt 2026, 09:15 WIB", pelapor: "Budi Santoso", rt: "RT 01 / RW 03", inisial: "BS", kategori: "Pelayanan", judul: "Lampu Penerangan Jalan Umum...", deskripsi: "Sudah 4 hari lampu PJU padam di jalan poros utama. Sangat membahayakan pengendara saat malam hari karena jalanan berlubang.", status: "Menunggu" },
   { id: 2, tanggal: "24 Okt 2026, 08:30 WIB", pelapor: "Siti Aminah", rt: "RT 03 / RW 01", inisial: "SA", kategori: "Pelayanan", judul: "Permohonan Surat Keterangan...", deskripsi: "Keperluan registrasi izin edar olahan pangan UMKM tingkat desa. Mohon segera diproses pak kades.", status: "Diproses" },
   { id: 3, tanggal: "23 Okt 2026, 17:45 WIB", pelapor: "Anonim", rt: "Terverifikasi NIK", inisial: "🔒", kategori: "Aspirasi", judul: "Tumpukan Sampah Liar di Dekat...", deskripsi: "Aroma mulai mengganggu jalan santai warga di pagi hari. Mohon disediakan tempat pembuangan sampah sementara (TPS) yang layak.", status: "Menunggu" },
-  { id: 4, tanggal: "23 Okt 2026, 14:10 WIB", pelapor: "Wahyudi Pratama", rt: "RT 04 / RW 02", inisial: "WP", kategori: "Infrastruktur", judul: "Saluran Irigasi Sawah Tersumbat...", deskripsi: "Aliran air tersendat ke 12 petak sawah di blok barat karena ada longsoran lumpur dari pengerjaan proyek kemarin.", status: "Selesai" },
+  { id: 4, tanggal: "23 Okt 2026, 14:10 WIB", pelapor: "Wahyudi Pratama", rt: "RT 04 / RW 02", inisial: "WP", kategori: "Pelayanan", judul: "Saluran Irigasi Sawah Tersumbat...", deskripsi: "Aliran air tersendat ke 12 petak sawah di blok barat karena ada longsoran lumpur dari pengerjaan proyek kemarin.", status: "Selesai" },
 ];
 
 export default function Admin() {
@@ -48,9 +48,7 @@ export default function Admin() {
       <aside className="w-64 bg-desa-darker text-white hidden md:flex flex-col shadow-xl z-10">
         <div className="p-6">
           <h2 className="text-xl font-bold flex items-center gap-3">
-            <div className="w-8 h-8 bg-desa-yellow rounded-lg flex items-center justify-center text-desa-darker">
-              <LayoutDashboard className="w-5 h-5" />
-            </div>
+     
             LaporDesa
           </h2>
           <p className="text-xs text-desa-light mt-1 tracking-widest uppercase">Desa Sukamaju</p>
@@ -92,20 +90,15 @@ export default function Admin() {
             <div className="bg-white p-5 rounded-xl shadow-sm border border-gray-100">
               <p className="text-xs text-slate-500 font-semibold uppercase tracking-wider mb-2">Total Laporan</p>
               <h3 className="text-4xl font-extrabold text-slate-800 mb-2">348</h3>
-              <div className="flex items-center gap-2 text-xs">
-                <span className="bg-emerald-100 text-emerald-700 px-2 py-0.5 rounded-full font-bold">~+12%</span>
-                <span className="text-slate-400">dibandingkan bulan lalu</span>
-              </div>
+            
             </div>
             <div className="bg-white p-5 rounded-xl shadow-sm border border-gray-100">
               <p className="text-xs text-slate-500 font-semibold uppercase tracking-wider mb-2">Aspirasi Masuk</p>
               <h3 className="text-4xl font-extrabold text-slate-800 mb-2">192</h3>
-              <p className="text-xs text-slate-400 font-medium border border-gray-200 inline-block px-2 py-1 rounded-md bg-gray-50">• Aduan & Inisiatif Warga</p>
             </div>
             <div className="bg-white p-5 rounded-xl shadow-sm border border-gray-100">
               <p className="text-xs text-slate-500 font-semibold uppercase tracking-wider mb-2">Pelayanan Desa</p>
               <h3 className="text-4xl font-extrabold text-slate-800 mb-2">156</h3>
-              <p className="text-xs text-emerald-600 font-medium border border-emerald-100 inline-block px-2 py-1 rounded-md bg-emerald-50 text-center w-full">Surat, NIB & KTP</p>
             </div>
             <div className="bg-white p-5 rounded-xl shadow-sm border border-amber-200 bg-amber-50/50">
               <p className="text-xs text-amber-700 font-semibold uppercase tracking-wider mb-2">Menunggu Tindakan</p>
@@ -124,17 +117,13 @@ export default function Admin() {
               <button className="px-4 py-1.5 bg-gray-100 text-slate-800 rounded-md shadow-sm">Semua</button>
               <button className="px-4 py-1.5 text-slate-500 hover:bg-gray-50 rounded-md">Aspirasi</button>
               <button className="px-4 py-1.5 text-slate-500 hover:bg-gray-50 rounded-md">Pelayanan</button>
-              <div className="h-6 w-px bg-gray-200 mx-1 self-center"></div>
-              <button className="px-4 py-1.5 text-slate-500 hover:bg-gray-50 rounded-md flex items-center gap-2">Semua Status <ChevronDown className="w-4 h-4"/></button>
             </div>
           </div>
 
           {/* TABLE SECTION */}
           <div className="bg-white rounded-xl shadow-sm border border-gray-200 overflow-hidden">
             <div className="p-5 border-b border-gray-100 flex justify-between items-center bg-white">
-              <h3 className="font-bold text-slate-800 flex items-center gap-3">
-                Daftar Laporan Terkini <span className="bg-emerald-100 text-emerald-700 px-2 py-1 rounded-md text-xs">6 dari 348</span>
-              </h3>
+          
               <p className="text-xs text-slate-400 flex items-center gap-2"><span className="w-2 h-2 rounded-full bg-desa-primary animate-pulse"></span> Sinkronisasi Realtime: Desa Sukamaju</p>
             </div>
             
@@ -197,15 +186,15 @@ export default function Admin() {
             
             {/* Pagination Footer */}
             <div className="p-4 border-t border-gray-100 bg-gray-50 flex items-center justify-between text-sm text-slate-500">
-              <p>Menampilkan halaman 1 dari 58</p>
+              <div></div>
               <div className="flex gap-1">
-                <button className="px-3 py-1 hover:bg-gray-200 rounded-md transition-colors">&lt; Sebelumnya</button>
+                <button className="px-3 py-1 hover:bg-gray-200 rounded-md transition-colors">&lt;</button>
                 <button className="px-3 py-1 bg-desa-darker text-white rounded-md shadow-sm">1</button>
                 <button className="px-3 py-1 hover:bg-gray-200 rounded-md transition-colors">2</button>
                 <button className="px-3 py-1 hover:bg-gray-200 rounded-md transition-colors">3</button>
                 <span className="px-2 py-1">...</span>
                 <button className="px-3 py-1 hover:bg-gray-200 rounded-md transition-colors">58</button>
-                <button className="px-3 py-1 hover:bg-gray-200 rounded-md transition-colors">Berikutnya &gt;</button>
+                <button className="px-3 py-1 hover:bg-gray-200 rounded-md transition-colors"> &gt;</button>
               </div>
             </div>
           </div>
