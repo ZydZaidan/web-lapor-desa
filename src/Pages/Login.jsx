@@ -24,7 +24,7 @@ export default function Login() {
       if (error) throw error;
 
       // Kalau sukses, kasih kunci akses ke browser
-      localStorage.setItem('isAdminLoggedIn', 'true'); 
+      sessionStorage.setItem('isAdminLoggedIn', 'true'); 
       navigate('/admin');
       
     } catch {

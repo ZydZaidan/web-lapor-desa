@@ -1,10 +1,12 @@
 
+import { Speech } from "lucide-react";
 export default function Navbar() {
   return (
     <nav className="fixed top-0 left-0 right-0 z-50 bg-desa-darker text-white py-4 px-6 md:px-12 shadow-md">
       <div className="max-w-7xl mx-auto flex justify-between items-center">
         <div className="font-bold text-xl tracking-wide flex items-center gap-2">
-          LaporDesa SukaMaju
+          <Speech className="w-6 h-6 text-desa-yellow" />
+          <span className="text-desa-yellow">Sapa</span> Glawan
         </div>
         
         <div className="hidden md:flex space-x-8 text-sm font-medium">

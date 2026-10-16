@@ -1,7 +1,7 @@
 import { useState, useEffect, useCallback } from 'react';
 import { LayoutDashboard, LogOut, Eye, Trash2, X, Image as ImageIcon, FileText as FileIcon } from 'lucide-react';
 import { useNavigate } from 'react-router-dom';
-import { supabase } from '../lib/supabase'; // Panggil Supabase
+import { supabase } from '../lib/supabase';
 
 export default function Admin() {
   const navigate = useNavigate();
@@ -43,9 +43,14 @@ export default function Admin() {
 
   // 2. Fungsi Hapus Data
   const handleDelete = async (id) => {
-    if (window.confirm("Yakin ingin menghapus laporan ini?")) {
+    if (window.confirm("Yakin mau menghapus laporan ini secara permanen, Pak/Bu?")) {
       const { error } = await supabase.from('laporan').delete().eq('id', id);
-      if (!error) fetchLaporan(); // Refresh tabel kalau sukses
+      if (!error) {
+        alert("Laporan berhasil dihapus!");
+        fetchLaporan(); // Refresh tabel kalau sukses
+      } else {
+        alert("Gagal menghapus laporan: " + error.message);
+      }
     }
   };
 
@@ -57,11 +62,11 @@ export default function Admin() {
       .eq('id', selectedReport.id);
 
     if (!error) {
-      alert("Status berhasil diperbarui!");
+      alert("Mantap, status laporan berhasil diupdate!");
       closeModal();
       fetchLaporan(); // Refresh tabel
     } else {
-      alert("Gagal memperbarui status.");
+      alert("Waduh, gagal update status. Coba lagi nggih.");
     }
   };
 
@@ -77,7 +82,7 @@ export default function Admin() {
   };
 
   const handleLogout = () => {
-    localStorage.removeItem('isAdminLoggedIn');
+    sessionStorage.removeItem('isAdminLoggedIn');
     navigate('/login');
   };
 
@@ -100,8 +105,8 @@ export default function Admin() {
       {/* SIDEBAR */}
       <aside className="w-64 bg-desa-darker text-white hidden md:flex flex-col shadow-xl z-10">
         <div className="p-6">
-          <h2 className="text-xl font-bold flex items-center gap-3">LaporDesa</h2>
-          <p className="text-xs text-desa-light mt-1 tracking-widest uppercase">Desa Sukamaju</p>
+          <h2 className="text-xl font-bold flex items-center gap-3">DASHBOARD ADMIN</h2>
+          <p className="text-xs text-desa-light mt-1 tracking-widest uppercase">Desa Glawan</p>
         </div>
         
         <div className="px-6 py-2 text-xs text-gray-400 font-semibold tracking-wider">MENU UTAMA</div>
@@ -112,7 +117,7 @@ export default function Admin() {
         </nav>
         
         <button onClick={handleLogout} className="flex items-center gap-3 text-gray-400 hover:text-white px-8 py-6 font-medium transition-colors border-t border-white/10">
-          <LogOut className="w-5 h-5" /> Keluar Sesi
+          <LogOut className="w-5 h-5" /> Keluar Akun
         </button>
       </aside>
 
@@ -121,26 +126,26 @@ export default function Admin() {
         <div className="max-w-7xl mx-auto p-6 md:p-10 space-y-8">
           
           <div>
-            <h1 className="text-2xl font-bold text-slate-800">Selamat Datang, Admin Sukamaju</h1>
-            <p className="text-slate-500 text-sm mt-1">Sistem Informasi & Pengaduan Warga Desa</p>
+            <h1 className="text-2xl font-bold text-slate-800">Sugeng Rawuh, Admin Glawan</h1>
+            <p className="text-slate-500 text-sm mt-1">Pusat Kendali Wadul & Usulan Warga Desa</p>
           </div>
 
-          {/* STATS CARDS (Data Asli) */}
+          {/* STATS CARDS */}
           <div className="grid grid-cols-1 md:grid-cols-4 gap-4">
             <div className="bg-white p-5 rounded-xl shadow-sm border border-gray-100">
-              <p className="text-xs text-slate-500 font-semibold uppercase tracking-wider mb-2">Total Laporan</p>
+              <p className="text-xs text-slate-500 font-semibold uppercase tracking-wider mb-2">Total Laporan Masuk</p>
               <h3 className="text-4xl font-extrabold text-slate-800 mb-2">{totalLaporan}</h3>
             </div>
             <div className="bg-white p-5 rounded-xl shadow-sm border border-gray-100">
-              <p className="text-xs text-slate-500 font-semibold uppercase tracking-wider mb-2">Aspirasi Masuk</p>
+              <p className="text-xs text-slate-500 font-semibold uppercase tracking-wider mb-2">Aspirasi Warga</p>
               <h3 className="text-4xl font-extrabold text-slate-800 mb-2">{totalAspirasi}</h3>
             </div>
             <div className="bg-white p-5 rounded-xl shadow-sm border border-gray-100">
-              <p className="text-xs text-slate-500 font-semibold uppercase tracking-wider mb-2">Pelayanan Desa</p>
+              <p className="text-xs text-slate-500 font-semibold uppercase tracking-wider mb-2">Urusan Pelayanan</p>
               <h3 className="text-4xl font-extrabold text-slate-800 mb-2">{totalPelayanan}</h3>
             </div>
             <div className="bg-white p-5 rounded-xl shadow-sm border border-amber-200 bg-amber-50/50">
-              <p className="text-xs text-amber-700 font-semibold uppercase tracking-wider mb-2">Menunggu Tindakan</p>
+              <p className="text-xs text-amber-700 font-semibold uppercase tracking-wider mb-2">Belum Ditangani</p>
               <h3 className="text-4xl font-extrabold text-amber-600 mb-2">{totalMenunggu}</h3>
             </div>
           </div>
@@ -148,26 +153,26 @@ export default function Admin() {
           {/* TABLE SECTION */}
           <div className="bg-white rounded-xl shadow-sm border border-gray-200 overflow-hidden">
             <div className="p-5 border-b border-gray-100 flex justify-between items-center bg-white">
-              <p className="text-xs text-slate-400 flex items-center gap-2"><span className="w-2 h-2 rounded-full bg-desa-primary animate-pulse"></span> Sinkronisasi Realtime: Supabase Database</p>
+              <p className="text-xs text-slate-400 flex items-center gap-2"><span className="w-2 h-2 rounded-full bg-desa-primary animate-pulse"></span> Data sinkron otomatis dari server</p>
             </div>
             
             <div className="overflow-x-auto">
               <table className="w-full text-left text-sm">
                 <thead className="bg-gray-50 text-slate-500 font-semibold text-xs border-b border-gray-200">
                   <tr>
-                    <th className="px-6 py-4 uppercase tracking-wider">Tanggal</th>
-                    <th className="px-6 py-4 uppercase tracking-wider">Pelapor</th>
+                    <th className="px-6 py-4 uppercase tracking-wider">Tanggal Masuk</th>
+                    <th className="px-6 py-4 uppercase tracking-wider">Data Warga</th>
                     <th className="px-6 py-4 uppercase tracking-wider">Kategori</th>
-                    <th className="px-6 py-4 uppercase tracking-wider">Judul Laporan</th>
+                    <th className="px-6 py-4 uppercase tracking-wider">Topik Laporan</th>
                     <th className="px-6 py-4 uppercase tracking-wider">Status</th>
-                    <th className="px-6 py-4 uppercase tracking-wider text-center">Aksi</th>
+                    <th className="px-6 py-4 uppercase tracking-wider text-center">Tindakan</th>
                   </tr>
                 </thead>
                 <tbody className="divide-y divide-gray-100">
                   {isLoading ? (
-                    <tr><td colSpan="6" className="text-center py-10 text-gray-500">Memuat data...</td></tr>
+                    <tr><td colSpan="6" className="text-center py-10 text-gray-500">Tunggu sebentar nggih, sedang memuat data...</td></tr>
                   ) : laporanData.length === 0 ? (
-                    <tr><td colSpan="6" className="text-center py-10 text-gray-500">Belum ada laporan masuk.</td></tr>
+                    <tr><td colSpan="6" className="text-center py-10 text-gray-500">Belum ada wadul atau usulan dari warga saat ini.</td></tr>
                   ) : (
                     laporanData.map((item) => (
                       <tr key={item.id} className="hover:bg-gray-50/50 transition-colors">
@@ -195,8 +200,8 @@ export default function Admin() {
                         {/* AKSI SELALU MUNCUL */}
                         <td className="px-6 py-4">
                           <div className="flex justify-center gap-2">
-                            <button onClick={() => handleViewDetail(item)} className="p-2 bg-white border border-gray-200 hover:bg-gray-50 text-slate-600 rounded-lg shadow-sm transition-all"><Eye className="w-4 h-4" /></button>
-                            <button onClick={() => handleDelete(item.id)} className="p-2 bg-white border border-gray-200 hover:bg-red-50 hover:text-red-600 text-slate-600 rounded-lg shadow-sm transition-all"><Trash2 className="w-4 h-4" /></button>
+                            <button title="Cek Detail" onClick={() => handleViewDetail(item)} className="p-2 bg-white border border-gray-200 hover:bg-gray-50 text-slate-600 rounded-lg shadow-sm transition-all"><Eye className="w-4 h-4" /></button>
+                            <button title="Hapus Laporan" onClick={() => handleDelete(item.id)} className="p-2 bg-white border border-gray-200 hover:bg-red-50 hover:text-red-600 text-slate-600 rounded-lg shadow-sm transition-all"><Trash2 className="w-4 h-4" /></button>
                           </div>
                         </td>
                       </tr>
@@ -214,7 +219,7 @@ export default function Admin() {
             <div className="bg-white w-full max-w-3xl rounded-2xl shadow-2xl overflow-hidden flex flex-col max-h-[90vh]">
               
               <div className="px-6 py-4 border-b border-gray-100 flex justify-between items-center bg-gray-50/50">
-                <h3 className="font-bold text-lg text-slate-800">Detail Pengaduan</h3>
+                <h3 className="font-bold text-lg text-slate-800">Rincian Wadul Warga</h3>
                 <button onClick={closeModal} className="p-2 hover:bg-gray-200 rounded-full transition-colors text-gray-500"><X className="w-5 h-5" /></button>
               </div>
 
@@ -224,26 +229,26 @@ export default function Admin() {
                   {/* Kiri: Info Text */}
                   <div className="space-y-6">
                     <div>
-                      <p className="text-xs font-semibold text-slate-400 uppercase tracking-wider mb-1">Status Laporan</p>
+                      <p className="text-xs font-semibold text-slate-400 uppercase tracking-wider mb-1">Status Penanganan</p>
                       <select 
                         value={newStatus}
                         onChange={(e) => setNewStatus(e.target.value)}
                         className="w-full px-3 py-2 border border-gray-300 rounded-lg text-sm font-semibold text-slate-700 outline-none focus:ring-2 focus:ring-desa-primary"
                       >
-                        <option value="Menunggu">Menunggu Tindakan</option>
-                        <option value="Diproses">Sedang Diproses</option>
-                        <option value="Selesai">Selesai / Ditutup</option>
+                        <option value="Menunggu">Belum Diproses</option>
+                        <option value="Diproses">Sedang Ditindaklanjuti</option>
+                        <option value="Selesai">Sampun Selesai (Ditutup)</option>
                       </select>
                     </div>
 
                     <div>
-                      <p className="text-xs font-semibold text-slate-400 uppercase tracking-wider mb-1">Informasi Pelapor</p>
+                      <p className="text-xs font-semibold text-slate-400 uppercase tracking-wider mb-1">Data Warga (Pelapor)</p>
                       <p className="font-bold text-slate-800">{selectedReport.nama_pelapor}</p>
                       <p className="text-sm text-slate-600">{selectedReport.rt_rw}</p>
                     </div>
 
                     <div>
-                      <p className="text-xs font-semibold text-slate-400 uppercase tracking-wider mb-1">Detail Masalah</p>
+                      <p className="text-xs font-semibold text-slate-400 uppercase tracking-wider mb-1">Inti Masalah</p>
                       <span className="inline-block px-2 py-1 bg-gray-100 text-gray-600 rounded text-xs font-semibold mb-2">{selectedReport.kategori}</span>
                       <h4 className="font-bold text-slate-800 text-lg mb-2">{selectedReport.judul}</h4>
                       <p className="text-sm text-slate-600 leading-relaxed bg-gray-50 p-4 rounded-lg border border-gray-100">
@@ -254,16 +259,16 @@ export default function Admin() {
 
                   {/* Kanan: Penampil PDF atau Gambar */}
                   <div>
-                    <p className="text-xs font-semibold text-slate-400 uppercase tracking-wider mb-2">Lampiran Bukti</p>
+                    <p className="text-xs font-semibold text-slate-400 uppercase tracking-wider mb-2">Lampiran Bukti Foto/Dokumen</p>
                     <div className="w-full min-h-[16rem] bg-slate-100 rounded-xl border-2 border-dashed border-gray-300 flex flex-col items-center justify-center p-2 text-center overflow-hidden">
                       {selectedReport.bukti_url ? (
                         selectedReport.bukti_url.toLowerCase().includes('.pdf') ? (
                           // Jika PDF, tampilkan tombol buka PDF
                           <div className="flex flex-col items-center space-y-3">
                             <FileIcon className="w-16 h-16 text-red-500" />
-                            <p className="text-sm font-semibold text-slate-700">Dokumen PDF Terlampir</p>
+                            <p className="text-sm font-semibold text-slate-700">Warga melampirkan file PDF</p>
                             <a href={selectedReport.bukti_url} target="_blank" rel="noreferrer" className="px-4 py-2 bg-slate-800 hover:bg-slate-700 text-white text-sm rounded-lg shadow-sm transition-colors">
-                              Buka Dokumen
+                              Buka & Baca Dokumen
                             </a>
                           </div>
                         ) : (
@@ -276,7 +281,7 @@ export default function Admin() {
                         // Jika tidak melampirkan file
                         <>
                           <ImageIcon className="w-12 h-12 mb-2 text-gray-300" />
-                          <p className="text-sm font-medium text-gray-400">Tidak ada lampiran</p>
+                          <p className="text-sm font-medium text-gray-400">Warga tidak melampirkan bukti</p>
                         </>
                       )}
                     </div>
@@ -287,10 +292,10 @@ export default function Admin() {
 
               <div className="px-6 py-4 border-t border-gray-100 bg-gray-50 flex justify-end gap-3">
                 <button onClick={closeModal} className="px-5 py-2 border border-gray-300 bg-white text-slate-700 font-medium rounded-lg hover:bg-gray-50 transition-all text-sm shadow-sm">
-                  Tutup
+                  Kembali
                 </button>
                 <button onClick={handleUpdateStatus} className="px-5 py-2 bg-desa-primary hover:bg-desa-muted text-white font-bold rounded-lg transition-all text-sm shadow-sm">
-                  Simpan Perubahan
+                  Update Status Laporan
                 </button>
               </div>
 
