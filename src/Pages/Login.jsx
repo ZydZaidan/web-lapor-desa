@@ -15,20 +15,22 @@ export default function Login() {
     setIsLoading(true);
     
     try {
-      // Cek kredensial ke Supabase Auth
+      const cleanEmail = email.trim();
+      const cleanPassword = password.trim();
+
       const { error } = await supabase.auth.signInWithPassword({
-        email: email,
-        password: password,
+        email: cleanEmail,
+        password: cleanPassword,
       });
 
       if (error) throw error;
 
-      // Kalau sukses, kasih kunci akses ke browser
+      // Simpan kunci akses sesi
       sessionStorage.setItem('isAdminLoggedIn', 'true'); 
-      navigate('/admin');
+      navigate('/admin', { replace: true });
       
-    } catch {
-      alert("Login gagal: Cek kembali email dan kata sandi Anda.");
+    } catch (err) {
+      alert("Login gagal: " + (err.message || "Cek kembali email dan kata sandi Anda."));
     } finally {
       setIsLoading(false);
     }

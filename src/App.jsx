@@ -3,12 +3,10 @@ import Landing from './Pages/Landing';
 import Login from './Pages/Login';
 import Admin from './Pages/Admin';
 
-// Komponen Satpam (Protected Route)
+// Protected Route
 const ProtectedRoute = () => {
-  // Cek apakah ada kunci 'isAdminLoggedIn' di penyimpanan browser (dummy auth)
-  const isAuth = localStorage.getItem('isAdminLoggedIn');
+  const isAuth = sessionStorage.getItem('isAdminLoggedIn') === 'true' || localStorage.getItem('isAdminLoggedIn') === 'true';
   
-  // Kalau ada, silakan lewat (Outlet). Kalau nggak, tendang ke login (Navigate)
   return isAuth ? <Outlet /> : <Navigate to="/login" replace />;
 };
 
