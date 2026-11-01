@@ -1,5 +1,6 @@
 import { BrowserRouter as Router, Routes, Route, Navigate, Outlet } from 'react-router-dom';
-import Landing from './Pages/Landing';
+import Home from './Pages/Home';
+import FormLapor from './Pages/FormLapor';
 import Login from './Pages/Login';
 import Admin from './Pages/Admin';
 
@@ -14,10 +15,10 @@ export default function App() {
   return (
     <Router>
       <Routes>
-        <Route path="/" element={<Landing />} />
+        <Route path="/" element={<Home />} />
+        <Route path="/lapor" element={<FormLapor />} />
         <Route path="/login" element={<Login />} />
         
-        {/* Rute yang dilindungi Satpam */}
         <Route element={<ProtectedRoute />}>
           <Route path="/admin" element={<Admin />} />
         </Route>

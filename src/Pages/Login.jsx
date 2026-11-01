@@ -2,6 +2,7 @@ import { useState } from 'react';
 import { Mail, Lock, ChevronRight, ArrowLeft } from 'lucide-react';
 import { useNavigate, Link } from 'react-router-dom';
 import { supabase } from '../lib/supabase'; // Panggil Supabase
+import logo from "../assets/LogoGlawanWhite.svg";
 
 export default function Login() {
   const navigate = useNavigate();
@@ -46,8 +47,7 @@ export default function Login() {
           <Link to="/" className="absolute top-4 left-4 text-gray-400 hover:text-white transition-colors flex items-center gap-1 text-xs font-medium">
             <ArrowLeft className="w-4 h-4" /> Beranda
           </Link>
-          <h2 className="text-2xl font-bold text-white mt-4">Portal Admin</h2>
-          <p className="text-desa-light text-sm mt-1 tracking-wide">Desa Sukamaju</p>
+          <img src={logo} alt="Logo Desa Glawan" className="mx-auto w-32 h-auto " />
         </div>
 
         <div className="p-8">

@@ -1,11 +1,12 @@
 import { useState, useEffect, useCallback } from 'react';
-import { LayoutDashboard, LogOut, Eye, Trash2, X, Image as ImageIcon, FileText as FileIcon } from 'lucide-react';
+import { LayoutDashboard, LogOut, Eye, Trash2, X, Image as ImageIcon, FileText as FileIcon, Menu } from 'lucide-react';
 import { useNavigate } from 'react-router-dom';
 import { supabase } from '../lib/supabase';
+import logo from "../assets/LogoGlawanWhite.svg"; 
 
 export default function Admin() {
   const navigate = useNavigate();
-  
+  const [isSidebarOpen, setIsSidebarOpen] = useState(false);
   const [laporanData, setLaporanData] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
   
@@ -100,16 +101,39 @@ export default function Admin() {
   const totalMenunggu = laporanData.filter(item => item.status === 'Menunggu').length;
 
   return (
-    <div className="min-h-screen bg-[#F8FAFC] flex font-sans">
+   <div className="min-h-screen bg-[#F8FAFC] flex flex-col md:flex-row font-sans">
       
-      {/* SIDEBAR */}
-      <aside className="w-64 bg-desa-darker text-white hidden md:flex flex-col shadow-xl z-10">
-        <div className="p-6">
-          <h2 className="text-xl font-bold flex items-center gap-3">DASHBOARD ADMIN</h2>
-          <p className="text-xs text-desa-light mt-1 tracking-widest uppercase">Desa Glawan</p>
+      {/* 1. HEADER KHUSUS MOBILE (Hanya Muncul di HP) */}
+      <header className="md:hidden bg-desa-darker text-white p-4 flex items-center justify-between shadow-md z-30">
+        <img src={logo} alt="Logo Desa Glawan" className="h-8 w-auto" />
+        <button onClick={() => setIsSidebarOpen(true)} className="p-2 hover:bg-white/10 rounded-lg transition-colors">
+          <Menu className="w-6 h-6 text-desa-light" />
+        </button>
+      </header>
+
+      {/* 2. OVERLAY GELAP DI HP (Muncul saat sidebar terbuka) */}
+      {isSidebarOpen && (
+        <div 
+          className="fixed inset-0 bg-slate-900/50 backdrop-blur-sm z-40 md:hidden"
+          onClick={() => setIsSidebarOpen(false)}
+        ></div>
+      )}
+
+      {/* 3. SIDEBAR (Bisa slide di HP, Permanen di Desktop) */}
+      <aside 
+        className={`fixed inset-y-0 left-0 z-50 w-64 bg-desa-darker text-white flex flex-col shadow-xl transition-transform duration-300 ease-in-out md:relative md:translate-x-0 ${
+          isSidebarOpen ? "translate-x-0" : "-translate-x-full"
+        }`}
+      >
+        <div className="p-6 flex justify-between items-center">
+          <img src={logo} alt="Logo Desa Glawan" className="w-32 h-auto" />
+          {/* Tombol Close silang (X) hanya di HP */}
+          <button onClick={() => setIsSidebarOpen(false)} className="md:hidden text-gray-400 hover:text-white p-1">
+            <X className="w-6 h-6" />
+          </button>
         </div>
         
-        <div className="px-6 py-2 text-xs text-gray-400 font-semibold tracking-wider">MENU UTAMA</div>
+        <div className="px-6 py-2 text-xs text-gray-400 font-semibold tracking-wider mt-2 md:mt-0">MENU UTAMA</div>
         <nav className="flex-1 p-4 space-y-1">
           <a href="#" className="flex items-center gap-3 bg-white/10 text-white px-4 py-3 rounded-lg font-medium border-l-4 border-desa-light">
             <LayoutDashboard className="w-5 h-5" /> Dashboard
@@ -121,8 +145,9 @@ export default function Admin() {
         </button>
       </aside>
 
-      {/* MAIN CONTENT */}
-      <main className="flex-1 overflow-y-auto h-screen relative">
+      {/* 4. MAIN CONTENT */}
+      {/* Tinggi disesuaikan: di HP dipotong tinggi header (64px), di Desktop full layar */}
+      <main className="flex-1 overflow-y-auto h-[calc(100vh-72px)] md:h-screen relative">
         <div className="max-w-7xl mx-auto p-6 md:p-10 space-y-8">
           
           <div>
@@ -131,23 +156,48 @@ export default function Admin() {
           </div>
 
           {/* STATS CARDS */}
-          <div className="grid grid-cols-1 md:grid-cols-4 gap-4">
-            <div className="bg-white p-5 rounded-xl shadow-sm border border-gray-100">
-              <p className="text-xs text-slate-500 font-semibold uppercase tracking-wider mb-2">Total Laporan Masuk</p>
-              <h3 className="text-4xl font-extrabold text-slate-800 mb-2">{totalLaporan}</h3>
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+            
+            {/* Card 1 */}
+            <div className="bg-white p-5 rounded-xl shadow-sm border border-gray-100 flex flex-col justify-between min-h-35">
+              <p className="text-xs text-slate-500 font-semibold uppercase tracking-wider leading-relaxed">
+                Total Laporan Masuk
+              </p>
+              <h3 className="text-4xl font-extrabold text-slate-800 mt-4">
+                {totalLaporan}
+              </h3>
             </div>
-            <div className="bg-white p-5 rounded-xl shadow-sm border border-gray-100">
-              <p className="text-xs text-slate-500 font-semibold uppercase tracking-wider mb-2">Aspirasi Warga</p>
-              <h3 className="text-4xl font-extrabold text-slate-800 mb-2">{totalAspirasi}</h3>
+
+            {/* Card 2 */}
+            <div className="bg-white p-5 rounded-xl shadow-sm border border-gray-100 flex flex-col justify-between min-h-35">
+              <p className="text-xs text-slate-500 font-semibold uppercase tracking-wider leading-relaxed">
+                Aspirasi Warga
+              </p>
+              <h3 className="text-4xl font-extrabold text-slate-800 mt-4">
+                {totalAspirasi}
+              </h3>
             </div>
-            <div className="bg-white p-5 rounded-xl shadow-sm border border-gray-100">
-              <p className="text-xs text-slate-500 font-semibold uppercase tracking-wider mb-2">Urusan Pelayanan</p>
-              <h3 className="text-4xl font-extrabold text-slate-800 mb-2">{totalPelayanan}</h3>
+
+            {/* Card 3 */}
+            <div className="bg-white p-5 rounded-xl shadow-sm border border-gray-100 flex flex-col justify-between min-h-35">
+              <p className="text-xs text-slate-500 font-semibold uppercase tracking-wider leading-relaxed">
+                Urusan Pelayanan
+              </p>
+              <h3 className="text-4xl font-extrabold text-slate-800 mt-4">
+                {totalPelayanan}
+              </h3>
             </div>
-            <div className="bg-white p-5 rounded-xl shadow-sm border border-amber-200 bg-amber-50/50">
-              <p className="text-xs text-amber-700 font-semibold uppercase tracking-wider mb-2">Belum Ditangani</p>
-              <h3 className="text-4xl font-extrabold text-amber-600 mb-2">{totalMenunggu}</h3>
+
+            {/* Card 4 */}
+            <div className="bg-white p-5 rounded-xl shadow-sm border border-amber-200 bg-amber-50/50 flex flex-col justify-between min-h-35">
+              <p className="text-xs text-amber-700 font-semibold uppercase tracking-wider leading-relaxed">
+                Belum Ditangani
+              </p>
+              <h3 className="text-4xl font-extrabold text-amber-600 mt-4">
+                {totalMenunggu}
+              </h3>
             </div>
+
           </div>
 
           {/* TABLE SECTION */}
@@ -260,7 +310,7 @@ export default function Admin() {
                   {/* Kanan: Penampil PDF atau Gambar */}
                   <div>
                     <p className="text-xs font-semibold text-slate-400 uppercase tracking-wider mb-2">Lampiran Bukti Foto/Dokumen</p>
-                    <div className="w-full min-h-[16rem] bg-slate-100 rounded-xl border-2 border-dashed border-gray-300 flex flex-col items-center justify-center p-2 text-center overflow-hidden">
+                    <div className="w-full min-h-64 bg-slate-100 rounded-xl border-2 border-dashed border-gray-300 flex flex-col items-center justify-center p-2 text-center overflow-hidden">
                       {selectedReport.bukti_url ? (
                         selectedReport.bukti_url.toLowerCase().includes('.pdf') ? (
                           // Jika PDF, tampilkan tombol buka PDF
