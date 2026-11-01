@@ -6,6 +6,15 @@ import logo from "../assets/LogoGlawanWhite.svg";
 
 export default function Admin() {
   const navigate = useNavigate();
+
+  useEffect(() => {
+    const isLoggedIn = sessionStorage.getItem('isAdminLoggedIn');
+    // Jika tidak ada session login, tendang balik ke halaman login
+    if (!isLoggedIn) {
+      navigate('/login', { replace: true });
+    }
+  }, [navigate]);
+  
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
   const [laporanData, setLaporanData] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
