@@ -1,31 +1,22 @@
 import { useState, useEffect } from "react";
 import { useLocation, Link } from "react-router-dom";
-import {
-  FileText,
-  MapPin,
-} from "lucide-react";
+import { FileText, MapPin } from "lucide-react";
 import Navbar from "../Components/Navbar";
 import Footer from "../Components/Footer";
 import desa1 from "../assets/desa1.png";
-import desa2 from "../assets/desa2.png"
-import desa3 from "../assets/desa3.png"
-import desa4 from "../assets/desa4.jpeg"
-import desa5 from "../assets/desa5.png"
-import edu from "../assets/edu.png"
+import desa2 from "../assets/desa2.png";
+import desa3 from "../assets/desa3.png";
+import desa4 from "../assets/desa4.jpeg";
+import desa5 from "../assets/desa5.png";
+import edu from "../assets/edu.png";
 
 export default function Home() {
   const location = useLocation();
 
   const [currentImage, setCurrentImage] = useState(0);
 
-  // Daftar 5 Gambar 
-  const heroImages = [
-    desa1,
-    desa2,
-    desa3,
-    desa5,
-    desa4,
-  ];
+  // Daftar 5 Gambar
+  const heroImages = [desa1, desa2, desa3, desa5, desa4];
 
   // Logika rotasi gambar setiap 5 detik
   useEffect(() => {
@@ -71,13 +62,12 @@ export default function Home() {
           </div>
         ))}
 
-      {/* Gradien dari bawah ke atas agar teks kiri bawah bisa terbaca */}
+        {/* Gradien dari bawah ke atas agar teks kiri bawah bisa terbaca */}
         <div className="absolute inset-0 bg-linear-to-t from-desa-darker/90 via-desa-darker/30 to-transparent"></div>
 
         {/* BUNGKUS BARU: Menyesuaikan margin & max-width persis seperti Navbar */}
         <div className="absolute bottom-28 md:bottom-32 left-0 right-0 z-10 w-full">
           <div className="max-w-7xl mx-auto px-6 md:px-12">
-            
             {/* Konten Hero */}
             <div className="max-w-sm md:max-w-2xl flex flex-col items-start text-left space-y-4">
               <h1 className="text-3xl md:text-5xl lg:text-6xl font-extrabold text-white leading-tight">
@@ -95,13 +85,11 @@ export default function Home() {
                 <FileText className="w-4 h-4 md:w-5 md:h-5" /> Buat Laporan
               </Link>
             </div>
-            
           </div>
         </div>
 
-       <div className="absolute bottom-0 translate-y-1/2 left-4 right-4 md:left-12 md:right-12 z-20 max-w-6xl mx-auto space-y-12">
+        <div className="absolute bottom-0 translate-y-1/2 left-4 right-4 md:left-12 md:right-12 z-20 max-w-6xl mx-auto space-y-12">
           <div className="bg-white/95 backdrop-blur-sm rounded-xl md:rounded-2xl p-4 md:p-6 shadow-xl border border-gray-100 flex flex-row items-center justify-between gap-1 md:gap-2 overflow-hidden">
-            
             {/* Info 1: Penduduk */}
             <div className="flex flex-col items-center text-center flex-1">
               <p className="font-bold text-slate-800 text-[11px] sm:text-sm md:text-2xl leading-tight">
@@ -138,7 +126,7 @@ export default function Home() {
                   Kab. Semarang
                 </p>
               </div>
-              
+
               {/* Tombol Maps Presisi */}
               <a
                 href="https://maps.app.goo.gl/j7dbhmjGB7vuiu6R7"
@@ -150,7 +138,6 @@ export default function Home() {
                 <MapPin className="w-3 h-3 md:w-4 md:h-4" />
               </a>
             </div>
-
           </div>
         </div>
       </section>
@@ -168,10 +155,22 @@ export default function Home() {
                 Mengenal Desa Glawan
               </h2>
               <p className="text-slate-600 leading-relaxed text-base">
-                Desa Glawan yang terletak di Kecamatan Pabelan, Kabupaten Semarang, Jawa Tengah, merupakan kawasan seluas 2,00 km² yang kaya akan potensi sumber daya lokal. Penggerak ekonomi utama masyarakat bertumpu pada pemberdayaan UMKM, khususnya produksi kerajinan anyaman bambu seperti besek dan keranjang ikan yang turut membuka peluang besar bagi pengembangan eduwisata desa.
+                Desa Glawan yang terletak di Kecamatan Pabelan, Kabupaten
+                Semarang, Jawa Tengah, merupakan kawasan seluas 2,00 km² yang
+                kaya akan potensi sumber daya lokal. Penggerak ekonomi utama
+                masyarakat bertumpu pada pemberdayaan UMKM, khususnya produksi
+                kerajinan anyaman bambu seperti besek dan keranjang ikan yang
+                turut membuka peluang besar bagi pengembangan eduwisata desa.
               </p>
               <p className="text-slate-600 leading-relaxed text-base">
-                Selain tangguh secara ekonomi, masyarakat Desa Glawan konsisten merawat kearifan lokal melalui tradisi Merti Dusun. Perayaan wujud syukur atas limpahan rezeki dan hasil bumi ini menjadi fondasi kuat dalam mempererat tali silaturahmi, menjaga kerukunan, serta merawat semangat gotong royong warga. Perpaduan harmonis antara kreativitas usaha lokal dan pelestarian budaya inilah yang terus mendorong Desa Glawan menuju kesejahteraan masyarakat yang berkelanjutan.
+                Selain tangguh secara ekonomi, masyarakat Desa Glawan konsisten
+                merawat kearifan lokal melalui tradisi Merti Dusun. Perayaan
+                wujud syukur atas limpahan rezeki dan hasil bumi ini menjadi
+                fondasi kuat dalam mempererat tali silaturahmi, menjaga
+                kerukunan, serta merawat semangat gotong royong warga. Perpaduan
+                harmonis antara kreativitas usaha lokal dan pelestarian budaya
+                inilah yang terus mendorong Desa Glawan menuju kesejahteraan
+                masyarakat yang berkelanjutan.
               </p>
             </div>
             <div className="w-full md:w-1/2">
@@ -184,28 +183,40 @@ export default function Home() {
               </div>
             </div>
           </div>
-
-          {/* HIGHLIGHT POTENSI & TRADISI DESA (Pengganti 4 Card Ikon) */}
+          <div className="flex flex-col items-center text-center space-y-4 pt-12 pb-2">
+            <div className="w-16 h-1.5 bg-desa-yellow rounded-full"></div>
+            <h2 className="text-3xl md:text-4xl font-extrabold text-slate-800">
+              Pesona & Potensi <span className="text-desa-primary">Glawan</span>
+            </h2>
+            <p className="text-slate-600 max-w-2xl text-sm md:text-base leading-relaxed">
+              Mengenal lebih dekat daya tarik wisata edukasi dan kekayaan
+              kearifan lokal yang terus dirawat oleh masyarakat desa.
+            </p>
+          </div>{" "}
           <div className="flex flex-col space-y-8 pt-8">
-            
             {/* Highlight 1: Eduwisata Desa (Gambar Kiri) */}
             <div className="group flex flex-col md:flex-row bg-gray-50 border border-gray-100 rounded-3xl p-4 md:p-6 shadow-sm hover:shadow-md transition-all gap-6 md:gap-8 items-center">
               {/* Box Gambar */}
               <div className="w-full md:w-5/12 h-56 md:h-72 rounded-2xl overflow-hidden shrink-0 relative">
-
-                <img 
+                <img
                   src={edu}
-                  alt="Eduwisata Desa Glawan" 
+                  alt="Eduwisata Desa Glawan"
                   className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700"
                 />
               </div>
               {/* Teks Konten */}
               <div className="w-full md:w-7/12 space-y-3 px-2 md:px-0">
                 <h3 className="text-2xl md:text-3xl font-bold text-slate-800 leading-tight">
-                  Pengembangan <span className="text-desa-primary">Eduwisata</span>
+                  Pengembangan{" "}
+                  <span className="text-desa-primary">Eduwisata</span>
                 </h3>
                 <p className="text-slate-600 leading-relaxed text-sm md:text-base">
-                  Desa Glawan terus berinovasi memaksimalkan potensi wilayahnya dengan mengembangkan daya tarik wisata edukasi (Eduwisata). Melalui pemanfaatan sumber daya alam lokal dan pemberdayaan masyarakat, desa ini menawarkan pengalaman wisata edukatif yang interaktif sekaligus membuka peluang pertumbuhan ekonomi kreatif secara berkelanjutan.
+                  Desa Glawan terus berinovasi memaksimalkan potensi wilayahnya
+                  dengan mengembangkan daya tarik wisata edukasi (Eduwisata).
+                  Melalui pemanfaatan sumber daya alam lokal dan pemberdayaan
+                  masyarakat, desa ini menawarkan pengalaman wisata edukatif
+                  yang interaktif sekaligus membuka peluang pertumbuhan ekonomi
+                  kreatif secara berkelanjutan.
                 </p>
               </div>
             </div>
@@ -214,26 +225,29 @@ export default function Home() {
             <div className="group flex flex-col md:flex-row bg-gray-50 border border-gray-100 rounded-3xl p-4 md:p-6 shadow-sm hover:shadow-md transition-all gap-6 md:gap-8 items-center">
               {/* Box Gambar */}
               <div className="w-full md:w-5/12 h-56 md:h-72 rounded-2xl overflow-hidden shrink-0 relative">
-
-                <img 
-                  src={desa5} 
-                  alt="Tradisi Merti Dusun Glawan" 
+                <img
+                  src={desa5}
+                  alt="Tradisi Merti Dusun Glawan"
                   className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700"
                 />
               </div>
               {/* Teks Konten */}
               <div className="w-full md:w-7/12 space-y-3 px-2 md:px-0">
                 <h3 className="text-2xl md:text-3xl font-bold text-slate-800 leading-tight">
-                  Pelestarian Tradisi <span className="text-desa-yellow">Merti Dusun</span>
+                  Pelestarian Tradisi{" "}
+                  <span className="text-desa-yellow">Merti Dusun</span>
                 </h3>
                 <p className="text-slate-600 leading-relaxed text-sm md:text-base">
-                  Sebagai wujud syukur atas limpahan hasil bumi, kesehatan, dan keselamatan, warga rutin menggelar tradisi Merti Dusun. Kearifan lokal yang diwariskan turun-temurun ini menjadi pilar utama dalam merawat kerukunan, mempererat tali silaturahmi, serta menghidupkan semangat gotong royong di tengah kehidupan bermasyarakat.
+                  Sebagai wujud syukur atas limpahan hasil bumi, kesehatan, dan
+                  keselamatan, warga rutin menggelar tradisi Merti Dusun.
+                  Kearifan lokal yang diwariskan turun-temurun ini menjadi pilar
+                  utama dalam merawat kerukunan, mempererat tali silaturahmi,
+                  serta menghidupkan semangat gotong royong di tengah kehidupan
+                  bermasyarakat.
                 </p>
               </div>
             </div>
-
           </div>
-          
         </div>
       </section>
 
